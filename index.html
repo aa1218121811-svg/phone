@@ -24,6 +24,30 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    /* 預設字體大小變數 (標準模式) */
+    :root {
+      --fz-title: 24px;
+      --fz-desc: 16px;
+      --fz-question: 18px;
+      --fz-option-tag: 17px;
+      --fz-option-text: 16px;
+      --fz-result-title: 21px;
+      --fz-result-text: 15px;
+      --fz-btn: 16px;
+    }
+
+    /* 大字體模式變數 */
+    body.font-large {
+      --fz-title: 29px;
+      --fz-desc: 19px;
+      --fz-question: 22px;
+      --fz-option-tag: 20px;
+      --fz-option-text: 19px;
+      --fz-result-title: 25px;
+      --fz-result-text: 18px;
+      --fz-btn: 19px;
+    }
+
     /* 手機版滿版及防橫向捲動設定 */
     html, body {
       width: 100%;
@@ -33,6 +57,28 @@
       background-color: #f4f8fb;
       overflow-x: hidden;
       position: relative;
+    }
+
+    /* 右上角固定字體切換按鈕 */
+    .font-switcher {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 999;
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid #38bdf8;
+      color: #0284c7;
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 14px;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .font-switcher:active {
+      background-color: #e0f2fe;
+      transform: scale(0.95);
     }
 
     /* 預設隱藏所有題目與結果區塊 */
@@ -72,36 +118,37 @@
     }
 
     .main-title {
-      font-size: 24px !important;
+      font-size: var(--fz-title) !important;
       font-weight: bold;
       color: #1a365d;
-      line-height: 1.3;
-      margin-bottom: 0.75rem !important;
+      line-height: 1.35;
+      margin-bottom: 0.85rem !important;
     }
 
     .main-desc {
-      font-size: 15px;
+      font-size: var(--fz-desc) !important;
       color: #4a5568;
-      margin-bottom: 1rem !important;
-      line-height: 1.5;
+      margin-bottom: 1.2rem !important;
+      line-height: 1.6;
     }
 
-    /* 手機版圖片容器：強制限制高度避免超出螢幕 */
+    /* 首頁長方形圖片容器 (填滿 cover，不留空白) */
     .hero-img-container {
       position: relative;
       width: 100%;
-      height: 32vh;
-      max-height: 280px;
+      height: 200px;
+      max-height: 220px;
       margin: 0 auto;
       overflow: hidden;
       border-radius: 14px;
-      box-shadow: 0 8px 20px rgba(14, 165, 233, 0.2);
+      box-shadow: 0 6px 16px rgba(14, 165, 233, 0.2);
+      background-color: #f8fafc;
     }
 
     .hero-img-animated {
       width: 100% !important;
       height: 100% !important;
-      object-fit: cover !important;
+      object-fit: cover !important; 
       border-radius: 14px;
       display: block;
       animation: heroFloat 4.5s ease-in-out infinite alternate;
@@ -113,30 +160,42 @@
       100% { transform: translateY(4px) scale(1.01); }
     }
 
-    /* 手機版題目圖片控制 */
+    /* 手機版題目圖片控制：維持正方形 (1:1) 且滿版裁切 */
     .quiz-img {
       width: 100% !important;
-      height: 28vh !important;
-      max-height: 240px;
+      max-width: 260px;
+      aspect-ratio: 1 / 1 !important;
+      height: auto !important;
+      object-fit: cover !important; 
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin: 0 auto 0.75rem auto;
+      display: block;
+    }
+
+    /* 結果頁專用圖片樣式：與下方文字方塊寬度對齊、高度固定並自動填滿 */
+    .result-img {
+      width: 100% !important;
+      height: 220px !important;
       object-fit: cover !important;
       border-radius: 14px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
       display: block;
     }
 
     /* 題目文字樣式 */
     .question-title {
-      font-size: 17px !important;
-      line-height: 1.5;
+      font-size: var(--fz-question) !important;
+      line-height: 1.55;
       color: #334155;
       font-weight: bold;
       background: rgba(255, 255, 255, 0.95);
-      padding: 14px;
+      padding: 14px 16px;
       border-radius: 12px;
       border: 2px solid #e2e8f0;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.85rem;
     }
 
     /* 手機版選項按鈕優化 */
@@ -144,13 +203,16 @@
       cursor: pointer;
       transition: all 0.2s ease;
       border-radius: 12px;
-      padding: 12px 14px;
+      padding: 12px 16px;
       border: 2px solid #e2e8f0;
       background-color: rgba(255, 255, 255, 0.95);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       position: relative;
       overflow: hidden;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+      display: flex;
+      align-items: center;
+      width: 100%;
     }
 
     .item-wrapper[data-option]:active {
@@ -160,23 +222,26 @@
     }
 
     .option-tag {
-      font-size: 17px !important;
+      font-size: var(--fz-option-tag) !important;
       font-weight: bold;
       color: #0284c7;
-      margin-right: 10px;
-      min-width: 20px;
+      margin-right: 12px;
+      min-width: 24px;
+      flex-shrink: 0;
     }
 
     .option-text {
-      font-size: 15px !important;
+      font-size: var(--fz-option-text) !important;
       color: #334155;
       margin: 0;
-      line-height: 1.4;
+      line-height: 1.45;
+      text-align: left;
+      word-break: break-all;
     }
 
     /* 上一題按鈕 */
     .prev-btn-wrapper {
-      margin-top: 1rem;
+      margin-top: 0.85rem;
       display: flex;
       justify-content: flex-end;
       width: 100%;
@@ -188,7 +253,7 @@
       color: #64748b !important;
       border-radius: 20px;
       padding: 6px 16px;
-      font-size: 13px;
+      font-size: var(--fz-btn) !important;
       font-weight: bold;
       cursor: pointer;
     }
@@ -199,8 +264,8 @@
       color: #ffffff !important;
       border: none;
       border-radius: 25px;
-      padding: 8px 22px;
-      font-size: 15px;
+      padding: 10px 26px;
+      font-size: var(--fz-btn) !important;
       font-weight: bold;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
@@ -209,34 +274,46 @@
     /* 結果頁文字方塊 */
     .result-text {
       background: rgba(255, 255, 255, 0.95);
-      padding: 16px;
+      padding: 18px;
       border-radius: 14px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+      width: 100%;
     }
 
     .result-text p {
-      font-size: 15px !important;
+      font-size: var(--fz-result-text) !important;
       line-height: 1.6;
       color: #2d3748;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.4rem;
     }
 
     .result-title {
-      font-size: 22px !important;
+      font-size: var(--fz-result-title) !important;
       font-weight: bold;
       color: #0284c7;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.6rem;
     }
 
-    /* Start Now 按鈕 */
+    /* Start Now 按鈕放大優化 */
     #start-quiz-btn {
       position: relative;
       z-index: 10;
-      border-radius: 30px;
-      box-shadow: 0 6px 15px rgba(14, 165, 233, 0.4);
+      font-size: var(--fz-btn) !important;
+      font-weight: bold;
+      padding: 14px 40px !important;
+      border-radius: 35px;
+      background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+      border: none;
+      color: #ffffff !important;
+      box-shadow: 0 8px 20px rgba(14, 165, 233, 0.4);
+      transition: all 0.2s ease;
     }
 
-    /* 背景裝飾容器 (手機版隱部分元素減輕效能負擔) */
+    #start-quiz-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* 背景裝飾容器 */
     .ocean-decor-container {
       position: fixed;
       top: 0;
@@ -294,6 +371,9 @@
 </head>
 <body>
 
+  <!-- 字體大小切換按鈕 (固定於右上角) -->
+  <button id="font-size-switcher" class="font-switcher" type="button">字體：標準</button>
+
   <!-- 背景氛圍特效容器 -->
   <div class="ocean-decor-container" id="ocean-container">
     <div class="top-waves"></div>
@@ -307,10 +387,11 @@
           <h1 class="main-title">《六仙海底撈：你是六仙裡的___》</h1>
           <p class="main-desc">傳說八仙過海所渡的東海中藏著八仙們留下的秘密。而這天，你心血來潮想潛入那片海域，一探究竟。</p>
           <div class="mb-3">
-            <button class="btn btn-primary btn-lg px-4 py-2" id="start-quiz-btn" type="button">Start now</button>
+            <button id="start-quiz-btn" type="button">Start now ➔</button>
           </div>
+          <br>
           <div class="hero-img-container">
-            <img src="Gemini_Generated_Image_g7uahlg7uahlg7ua.jpg" alt="六仙海底撈">
+            <img class="hero-img-animated" src="Gemini_Generated_Image_g7uahlg7uahlg7ua.jpg" alt="六仙海底撈">
           </div>
         </div>
       </div>
@@ -322,23 +403,23 @@
     <div class="container px-2">
       <div class="row justify-content-center align-items-center">
         <div class="col-12 text-center mb-2">
-          <img src="Gemini_Generated_Image_m50fo3m50fo3m50f.jpg" alt="題目 1">
+          <img class="quiz-img" src="Gemini_Generated_Image_m50fo3m50fo3m50f.jpg" alt="題目 1">
         </div>
         <div class="col-12">
           <div class="question-title">
             1. 剛踏進六仙海底撈，全店員工突然同時盯著你。這裡安靜到只剩氣泡聲。這時你會？
           </div>
           <div class="item-wrapper" data-option="A">
-            <div class="d-flex align-items-center"><span class="option-tag">A.</span><p class="option-text">主動打招呼化解尷尬</p></div>
+            <span class="option-tag">A.</span><p class="option-text">主動打招呼化解尷尬</p>
           </div>
           <div class="item-wrapper" data-option="B">
-            <div class="d-flex align-items-center"><span class="option-tag">B.</span><p class="option-text">默默觀察每個人的表情</p></div>
+            <span class="option-tag">B.</span><p class="option-text">默默觀察每個人的表情</p>
           </div>
           <div class="item-wrapper" data-option="C">
-            <div class="d-flex align-items-center"><span class="option-tag">C.</span><p class="option-text">假裝冷靜但其實內心很惶恐不安</p></div>
+            <span class="option-tag">C.</span><p class="option-text">假裝冷靜但其實內心很惶恐不安</p>
           </div>
           <div class="item-wrapper" data-option="D">
-            <div class="d-flex align-items-center"><span class="option-tag">D.</span><p class="option-text">開始懷疑這件店是否有異樣</p></div>
+            <span class="option-tag">D.</span><p class="option-text">開始懷疑這件店是否有異樣</p>
           </div>
         </div>
       </div>
@@ -350,23 +431,24 @@
     <div class="container px-2">
       <div class="row justify-content-center align-items-center">
         <div class="col-12 text-center mb-2">
-          <img src=Gemini_Generated_Image_cn23a2cn23a2cn23.jpg alt="題目 2">
+          <img class="quiz-img" src="Gemini_Generated_Image_cn23a2cn23a2cn23.jpg" alt="題目 2">
         </div>
         <div class="col-12">
           <div class="question-title">
-            2. 你隨機找了個位置坐下。這時游過來一位戴著船長帽的海龜，他是店長，告訴你最近有人吃飯到一半突然消失。你第一個懷疑的是？
+            2. 你隨機找了個位置坐下。這時游過來一位戴著船長帽的海龜，他是店長，<br>
+            告訴你最近有人吃飯到一半突然消失。你第一個懷疑的是？
           </div>
           <div class="item-wrapper" data-option="A">
-            <div class="d-flex align-items-center"><span class="option-tag">A.</span><p class="option-text">直覺有外來生物入侵</p></div>
+            <span class="option-tag">A.</span><p class="option-text">直覺有外來生物入侵</p>
           </div>
           <div class="item-wrapper" data-option="B">
-            <div class="d-flex align-items-center"><span class="option-tag">B.</span><p class="option-text">店內有人在惡搞</p></div>
+            <span class="option-tag">B.</span><p class="option-text">店內有人在惡搞</p>
           </div>
           <div class="item-wrapper" data-option="C">
-            <div class="d-flex align-items-center"><span class="option-tag">C.</span><p class="option-text">老闆只是想博君一笑</p></div>
+            <span class="option-tag">C.</span><p class="option-text">老闆只是想博君一笑</p>
           </div>
           <div class="item-wrapper" data-option="D">
-            <div class="d-flex align-items-center"><span class="option-tag">D.</span><p class="option-text">把問題記在心裡，私下偷偷調查</p></div>
+            <span class="option-tag">D.</span><p class="option-text">把問題記在心裡，私下偷偷調查</p>
           </div>
           <div class="prev-btn-wrapper">
             <button class="btn btn-prev-question" type="button">← 回上一題</button>
@@ -381,23 +463,23 @@
     <div class="container px-2">
       <div class="row justify-content-center align-items-center">
         <div class="col-12 text-center mb-2">
-          <img src="Gemini_Generated_Image_ffh21affh21affh2.jpg" alt="題目 3">
+          <img class="quiz-img" src="Gemini_Generated_Image_ffh21affh21affh2.jpg" alt="題目 3">
         </div>
         <div class="col-12">
           <div class="question-title">
             3. 半夜你聽到廚房有聲響，走近發現員工在偷吃食物，對方小聲拜託你保密，這時你會怎做？
           </div>
           <div class="item-wrapper" data-option="A">
-            <div class="d-flex align-items-center"><span class="option-tag">A.</span><p class="option-text">立刻通報店長</p></div>
+            <span class="option-tag">A.</span><p class="option-text">立刻通報店長</p>
           </div>
           <div class="item-wrapper" data-option="B">
-            <div class="d-flex align-items-center"><span class="option-tag">B.</span><p class="option-text">幫忙隱瞞一次，下不為例</p></div>
+            <span class="option-tag">B.</span><p class="option-text">幫忙隱瞞一次，下不為例</p>
           </div>
           <div class="item-wrapper" data-option="C">
-            <div class="d-flex align-items-center"><span class="option-tag">C.</span><p class="option-text">跟著他一起偷吃食物</p></div>
+            <span class="option-tag">C.</span><p class="option-text">跟著他一起偷吃食物</p>
           </div>
           <div class="item-wrapper" data-option="D">
-            <div class="d-flex align-items-center"><span class="option-tag">D.</span><p class="option-text">趁機交換這間店的情報</p></div>
+            <span class="option-tag">D.</span><p class="option-text">趁機交換這間店的情報</p>
           </div>
           <div class="prev-btn-wrapper">
             <button class="btn btn-prev-question" type="button">← 回上一題</button>
@@ -412,23 +494,23 @@
     <div class="container px-2">
       <div class="row justify-content-center align-items-center">
         <div class="col-12 text-center mb-2">
-          <img src="Gemini_Generated_Image_hj5hrwhj5hrwhj5h.jpg" alt="題目 4">
+          <img class="quiz-img" src="Gemini_Generated_Image_hj5hrwhj5hrwhj5h.jpg" alt="題目 4">
         </div>
         <div class="col-12">
           <div class="question-title">
             4. 走出店外，傳單飄落到腳邊，上面浮現「下一位消失的人」，你會？
           </div>
           <div class="item-wrapper" data-option="A">
-            <div class="d-flex align-items-center"><span class="option-tag">A.</span><p class="option-text">立刻通知大家</p></div>
+            <span class="option-tag">A.</span><p class="option-text">立刻通知大家</p>
           </div>
           <div class="item-wrapper" data-option="B">
-            <div class="d-flex align-items-center"><span class="option-tag">B.</span><p class="option-text">先確認自己名字有沒有在上面</p></div>
+            <span class="option-tag">B.</span><p class="option-text">先確認自己名字有沒有在上面</p>
           </div>
           <div class="item-wrapper" data-option="C">
-            <div class="d-flex align-items-center"><span class="option-tag">C.</span><p class="option-text">自己偷偷暗中調查</p></div>
+            <span class="option-tag">C.</span><p class="option-text">自己偷偷暗中調查</p>
           </div>
           <div class="item-wrapper" data-option="D">
-            <div class="d-flex align-items-center"><span class="option-tag">D.</span><p class="option-text">直覺是假的，隨手一扔</p></div>
+            <span class="option-tag">D.</span><p class="option-text">直覺是假的，隨手一扔</p>
           </div>
           <div class="prev-btn-wrapper">
             <button class="btn btn-prev-question" type="button">← 回上一題</button>
@@ -443,23 +525,23 @@
     <div class="container px-2">
       <div class="row justify-content-center align-items-center">
         <div class="col-12 text-center mb-2">
-          <img src="Gemini_Generated_Image_qw2v4kqw2v4kqw2v.jpg" alt="題目 5">
+          <img class="quiz-img" src="Gemini_Generated_Image_qw2v4kqw2v4kqw2v.jpg" alt="題目 5">
         </div>
         <div class="col-12">
           <div class="question-title">
             5. 海龜店長拿出契約書要給源源不絕的財富，但小字寫著「背叛將永遠無法離開東海」，你會？
           </div>
           <div class="item-wrapper" data-option="A">
-            <div class="d-flex align-items-center"><span class="option-tag">A.</span><p class="option-text">沒看備註直接簽下</p></div>
+            <span class="option-tag">A.</span><p class="option-text">沒看備註直接簽下</p>
           </div>
           <div class="item-wrapper" data-option="B">
-            <div class="d-flex align-items-center"><span class="option-tag">B.</span><p class="option-text">信任店長，直接簽下</p></div>
+            <span class="option-tag">B.</span><p class="option-text">信任店長，直接簽下</p>
           </div>
           <div class="item-wrapper" data-option="C">
-            <div class="d-flex align-items-center"><span class="option-tag">C.</span><p class="option-text">仔細思考內容是否有詐</p></div>
+            <span class="option-tag">C.</span><p class="option-text">仔細思考內容是否有詐</p>
           </div>
           <div class="item-wrapper" data-option="D">
-            <div class="d-flex align-items-center"><span class="option-tag">D.</span><p class="option-text">直接拒絕店長的邀約</p></div>
+            <span class="option-tag">D.</span><p class="option-text">直接拒絕店長的邀約</p>
           </div>
           <div class="prev-btn-wrapper">
             <button class="btn btn-prev-question" type="button">← 回上一題</button>
@@ -473,12 +555,16 @@
   <section class="quiz-page features031" id="result-A">
     <div class="container px-2">
       <div class="row justify-content-center align-items-center">
-        <div class="col-12 text-center mb-2">
-          <img src="Gemini_Generated_Image_x70fvex70fvex70f.jpg" alt="紅鼓魚">
+        <div class="col-12 mb-2">
+          <img class="result-img" src="Gemini_Generated_Image_x70fvex70fvex70f.jpg" alt="紅鼓魚">
         </div>
         <div class="col-12 result-text">
           <div class="result-title">你的測驗結果：紅鼓魚</div>
-          <p>存在感強，活動力高，是養殖池裡最吸睛的魚，對環境敏感，心思細膩的樂天派。</p>
+          <p>存在感很強，活動力高，游動姿態漂亮的魚種。</p>
+          <p>在魚塭或海水養殖池裡容易成為裡面最吸睛的魚。</p>
+          <p>雖然外表亮眼，但其實對環境變化很敏感，需要穩定水質與細膩的照顧。</p>
+          <p>群體生活容易活在自己的世界，自顧自偏離其他魚群，下一秒再閃現到眼前，是最閃亮的顯眼包。</p>
+          <p class="mt-2 text-primary"><strong>#自信張揚 #熱情迷人 #卻又心思細膩的樂天派</strong></p>
           <div class="mt-3 text-center">
             <button class="btn btn-restart-quiz" type="button">🔄 重新測驗</button>
           </div>
@@ -491,12 +577,15 @@
   <section class="quiz-page features031" id="result-B">
     <div class="container px-2">
       <div class="row justify-content-center align-items-center">
-        <div class="col-12 text-center mb-2">
-          <img src="Gemini_Generated_Image_97knn297knn297kn.jpg" alt="魟魚">
+        <div class="col-12 mb-2">
+          <img class="result-img" src="Gemini_Generated_Image_97knn297knn297kn.jpg" alt="魟魚">
         </div>
         <div class="col-12 result-text">
           <div class="result-title">你的測驗結果：魟魚</div>
-          <p>佛系交友、隨和的人設，重視雙向交流，也極需要自己的個人空間。</p>
+          <p>佛系交友、隨和的人設，但不是誰都可以，尾巴的刺就是最好的象徵。</p>
+          <p>魟魚接受群體生活，但如果長時間下來佔用了牠太多應有的個人空間，則會默默游出此地。</p>
+          <p>交流感與舒服的互動節奏，正是牠的專利，只要拿捏好分寸，也能獲得牠的青睞。</p>
+          <p class="mt-2 text-primary"><strong>#隨和有界限 #重視雙向交流 #也很需要自己的空間</strong></p>
           <div class="mt-3 text-center">
             <button class="btn btn-restart-quiz" type="button">🔄 重新測驗</button>
           </div>
@@ -509,12 +598,16 @@
   <section class="quiz-page features031" id="result-C">
     <div class="container px-2">
       <div class="row justify-content-center align-items-center">
-        <div class="col-12 text-center mb-2">
-          <img src="Gemini_Generated_Image_ksuzzcksuzzcksuz.jpg" alt="魔鬼刀">
+        <div class="col-12 mb-2">
+          <img class="result-img" src="Gemini_Generated_Image_ksuzzcksuzzcksuz.jpg" alt="魔鬼刀">
         </div>
         <div class="col-12 result-text">
           <div class="result-title">你的測驗結果：魔鬼刀</div>
-          <p>冷靜且敏銳，擁有清楚的判斷及洞察能力，嘴毒直率的反差系代表。</p>
+          <p>幼時笨拙可愛，長大有種壓迫感的存在。</p>
+          <p>外表黑色佔大多面積，少量的白色成為點綴牠的特點。這樣的外貌形似包公。</p>
+          <p>黑色的臉，白色的月亮，象徵冷靜且敏銳，擁有清楚的判斷及洞察能力。</p>
+          <p>聰明、不輕易上鉤、警戒心高是牠的標籤。</p>
+          <p class="mt-2 text-primary"><strong>#嘴毒直率 #明辨是非 #卻又有禮貌的反差系</strong></p>
           <div class="mt-3 text-center">
             <button class="btn btn-restart-quiz" type="button">🔄 重新測驗</button>
           </div>
@@ -527,12 +620,15 @@
   <section class="quiz-page features031" id="result-D">
     <div class="container px-2">
       <div class="row justify-content-center align-items-center">
-        <div class="col-12 text-center mb-2">
-          <img src="Gemini_Generated_Image_flcztzflcztzflcz.jpg" alt="河豚">
+        <div class="col-12 mb-2">
+          <img class="result-img" src="Gemini_Generated_Image_flcztzflcztzflcz.jpg" alt="河豚">
         </div>
         <div class="col-12 result-text">
           <div class="result-title">你的測驗結果：河豚</div>
-          <p>高敏感、高防備、外冷內熱的完美主義 I 人代表。</p>
+          <p>天生自帶一種：「高敏感、高防備、高自我保護」的型態出現於眾人眼前。</p>
+          <p>平時不會主動找人搭話聊天。甚至大部分時間喜歡安安靜靜地待著，看起來無害、低調。</p>
+          <p>但只要外界的資訊靠近牠，會膨脹自身，產生自我保護的機制。</p>
+          <p class="mt-2 text-primary"><strong>#高標準 #心思細膩又敏感 #外冷內熱的完美主義I人</strong></p>
           <div class="mt-3 text-center">
             <button class="btn btn-restart-quiz" type="button">🔄 重新測驗</button>
           </div>
@@ -549,9 +645,22 @@
     const quizSections = Array.from(document.querySelectorAll('section.features028'));
     const startBtn = document.getElementById('start-quiz-btn');
     const oceanContainer = document.getElementById('ocean-container');
+    const fontSwitcher = document.getElementById('font-size-switcher');
 
     const scores = { A: 0, B: 0, C: 0, D: 0 };
     const userHistory = [];
+
+    // 字體大小切換功能
+    if (fontSwitcher) {
+      fontSwitcher.addEventListener('click', function () {
+        document.body.classList.toggle('font-large');
+        if (document.body.classList.contains('font-large')) {
+          fontSwitcher.textContent = "字體：特大";
+        } else {
+          fontSwitcher.textContent = "字體：標準";
+        }
+      });
+    }
 
     // 初始化手機版輕量背景氣泡
     function initOceanDecorations() {
@@ -607,7 +716,6 @@
       const options = currentSection.querySelectorAll('.item-wrapper[data-option]');
 
       options.forEach(option => {
-        // 同時支援手機觸控 (touchend) 與滑鼠點擊 (click) 確保 iOS / Android 反應靈敏
         option.addEventListener('click', function (e) {
           const rect = this.getBoundingClientRect();
           const chosen = this.getAttribute('data-option');
