@@ -26,8 +26,7 @@
 
     /* 預設字體大小變數 (標準模式) */
     :root {
-      --fz-title: 24px;
-      --fz-desc: 16px;
+      --fz-desc: 15px;
       --fz-question: 18px;
       --fz-option-tag: 17px;
       --fz-option-text: 16px;
@@ -38,14 +37,13 @@
 
     /* 大字體模式變數 */
     body.font-large {
-      --fz-title: 29px;
-      --fz-desc: 19px;
-      --fz-question: 22px;
+      --fz-desc: 18px;
+      --fz-question: 21px;
       --fz-option-tag: 20px;
       --fz-option-text: 19px;
-      --fz-result-title: 25px;
+      --fz-result-title: 24px;
       --fz-result-text: 18px;
-      --fz-btn: 19px;
+      --fz-btn: 18px;
     }
 
     /* 手機版滿版及防橫向捲動設定 */
@@ -59,11 +57,11 @@
       position: relative;
     }
 
-    /* 右上角固定字體切換按鈕 */
+    /* 左上角固定字體切換按鈕 */
     .font-switcher {
       position: fixed;
       top: 15px;
-      right: 15px;
+      left: 15px; /* 修改至左上角 */
       z-index: 999;
       background: rgba(255, 255, 255, 0.9);
       border: 2px solid #38bdf8;
@@ -117,12 +115,20 @@
       display: flex !important;
     }
 
+    /* 首頁主標題字體下修精簡 */
     .main-title {
-      font-size: var(--fz-title) !important;
+      font-size: clamp(18px, 5.2vw, 22px) !important; /* 精簡縮小標題尺寸 */
       font-weight: bold;
       color: #1a365d;
       line-height: 1.35;
-      margin-bottom: 0.85rem !important;
+      margin-bottom: 0.75rem !important;
+      word-break: keep-all;
+      white-space: nowrap;
+    }
+
+    body.font-large .main-title {
+      font-size: clamp(20px, 6vw, 25px) !important;
+      white-space: normal;
     }
 
     .main-desc {
@@ -371,7 +377,7 @@
 </head>
 <body>
 
-  <!-- 字體大小切換按鈕 (固定於右上角) -->
+  <!-- 字體大小切換按鈕 (固定於左上角) -->
   <button id="font-size-switcher" class="font-switcher" type="button">字體：標準</button>
 
   <!-- 背景氛圍特效容器 -->
