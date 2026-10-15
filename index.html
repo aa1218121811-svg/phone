@@ -26,24 +26,24 @@
 
     /* 預設字體大小變數 (標準模式) */
     :root {
-      --fz-desc: 15px;
-      --fz-question: 18px;
-      --fz-option-tag: 17px;
-      --fz-option-text: 16px;
-      --fz-result-title: 21px;
-      --fz-result-text: 15px;
-      --fz-btn: 16px;
+      --fz-desc: 14px;
+      --fz-question: 17px;
+      --fz-option-tag: 16px;
+      --fz-option-text: 15px;
+      --fz-result-title: 19px;
+      --fz-result-text: 13.5px;
+      --fz-btn: 15px;
     }
 
     /* 大字體模式變數 */
     body.font-large {
-      --fz-desc: 18px;
-      --fz-question: 21px;
-      --fz-option-tag: 20px;
-      --fz-option-text: 19px;
-      --fz-result-title: 24px;
-      --fz-result-text: 18px;
-      --fz-btn: 18px;
+      --fz-desc: 17px;
+      --fz-question: 20px;
+      --fz-option-tag: 19px;
+      --fz-option-text: 18px;
+      --fz-result-title: 22px;
+      --fz-result-text: 16px;
+      --fz-btn: 17px;
     }
 
     /* 手機版滿版及防橫向捲動設定 */
@@ -57,18 +57,18 @@
       position: relative;
     }
 
-    /* 左上角固定字體切換按鈕 */
+    /* 左上角固定字體切換按鈕 (預設僅在首頁顯示) */
     .font-switcher {
       position: fixed;
       top: 15px;
-      left: 15px; /* 修改至左上角 */
+      left: 15px;
       z-index: 999;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.95);
       border: 2px solid #38bdf8;
       color: #0284c7;
       border-radius: 20px;
       padding: 4px 12px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: bold;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       cursor: pointer;
@@ -79,12 +79,17 @@
       transform: scale(0.95);
     }
 
+    /* 進入測驗後隱藏字體切換按鈕 */
+    body.hide-switcher .font-switcher {
+      display: none !important;
+    }
+
     /* 預設隱藏所有題目與結果區塊 */
     section.quiz-page {
       display: none;
       width: 100%;
       min-height: 100vh;
-      padding: 1.25rem 1rem;
+      padding: 1rem 0.8rem;
       box-sizing: border-box;
       position: relative;
       z-index: 2;
@@ -115,9 +120,9 @@
       display: flex !important;
     }
 
-    /* 首頁主標題字體下修精簡 */
+    /* 首頁主標題適度縮小，確保不超過畫面 */
     .main-title {
-      font-size: clamp(18px, 5.2vw, 22px) !important; /* 精簡縮小標題尺寸 */
+      font-size: clamp(17px, 4.8vw, 21px) !important;
       font-weight: bold;
       color: #1a365d;
       line-height: 1.35;
@@ -127,26 +132,26 @@
     }
 
     body.font-large .main-title {
-      font-size: clamp(20px, 6vw, 25px) !important;
+      font-size: clamp(19px, 5.5vw, 24px) !important;
       white-space: normal;
     }
 
     .main-desc {
       font-size: var(--fz-desc) !important;
       color: #4a5568;
-      margin-bottom: 1.2rem !important;
-      line-height: 1.6;
+      margin-bottom: 1rem !important;
+      line-height: 1.5;
     }
 
     /* 首頁長方形圖片容器 (填滿 cover，不留空白) */
     .hero-img-container {
       position: relative;
       width: 100%;
-      height: 200px;
-      max-height: 220px;
+      height: 180px;
+      max-height: 200px;
       margin: 0 auto;
       overflow: hidden;
-      border-radius: 14px;
+      border-radius: 12px;
       box-shadow: 0 6px 16px rgba(14, 165, 233, 0.2);
       background-color: #f8fafc;
     }
@@ -155,7 +160,7 @@
       width: 100% !important;
       height: 100% !important;
       object-fit: cover !important; 
-      border-radius: 14px;
+      border-radius: 12px;
       display: block;
       animation: heroFloat 4.5s ease-in-out infinite alternate;
     }
@@ -169,50 +174,51 @@
     /* 手機版題目圖片控制：維持正方形 (1:1) 且滿版裁切 */
     .quiz-img {
       width: 100% !important;
-      max-width: 260px;
+      max-width: 220px;
       aspect-ratio: 1 / 1 !important;
       height: auto !important;
       object-fit: cover !important; 
-      border-radius: 14px;
+      border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      margin: 0 auto 0.75rem auto;
+      margin: 0 auto 0.5rem auto;
       display: block;
     }
 
-    /* 結果頁專用圖片樣式：與下方文字方塊寬度對齊、高度固定並自動填滿 */
+    /* 結果頁專用圖片樣式：縮小高度以適應手機直式畫面，避免文字被擠出畫面 */
     .result-img {
       width: 100% !important;
-      height: 220px !important;
+      max-width: 200px;
+      height: 160px !important;
       object-fit: cover !important;
-      border-radius: 14px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      margin-bottom: 0.75rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      margin: 0 auto 0.5rem auto;
       display: block;
     }
 
     /* 題目文字樣式 */
     .question-title {
       font-size: var(--fz-question) !important;
-      line-height: 1.55;
+      line-height: 1.45;
       color: #334155;
       font-weight: bold;
       background: rgba(255, 255, 255, 0.95);
-      padding: 14px 16px;
-      border-radius: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
       border: 2px solid #e2e8f0;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-      margin-bottom: 0.85rem;
+      margin-bottom: 0.65rem;
     }
 
     /* 手機版選項按鈕優化 */
     .item-wrapper[data-option] {
       cursor: pointer;
       transition: all 0.2s ease;
-      border-radius: 12px;
-      padding: 12px 16px;
+      border-radius: 10px;
+      padding: 10px 12px;
       border: 2px solid #e2e8f0;
       background-color: rgba(255, 255, 255, 0.95);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       position: relative;
       overflow: hidden;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
@@ -231,8 +237,8 @@
       font-size: var(--fz-option-tag) !important;
       font-weight: bold;
       color: #0284c7;
-      margin-right: 12px;
-      min-width: 24px;
+      margin-right: 10px;
+      min-width: 22px;
       flex-shrink: 0;
     }
 
@@ -240,14 +246,14 @@
       font-size: var(--fz-option-text) !important;
       color: #334155;
       margin: 0;
-      line-height: 1.45;
+      line-height: 1.35;
       text-align: left;
       word-break: break-all;
     }
 
     /* 上一題按鈕 */
     .prev-btn-wrapper {
-      margin-top: 0.85rem;
+      margin-top: 0.65rem;
       display: flex;
       justify-content: flex-end;
       width: 100%;
@@ -258,7 +264,7 @@
       border: 2px solid #94a3b8;
       color: #64748b !important;
       border-radius: 20px;
-      padding: 6px 16px;
+      padding: 5px 14px;
       font-size: var(--fz-btn) !important;
       font-weight: bold;
       cursor: pointer;
@@ -270,34 +276,36 @@
       color: #ffffff !important;
       border: none;
       border-radius: 25px;
-      padding: 10px 26px;
+      padding: 8px 22px;
       font-size: var(--fz-btn) !important;
       font-weight: bold;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
     }
 
-    /* 結果頁文字方塊 */
+    /* 結果頁文字方塊：針對手機尺寸進行內距與行高最佳化，確保完整顯示不超出版面 */
     .result-text {
       background: rgba(255, 255, 255, 0.95);
-      padding: 18px;
-      border-radius: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.04);
       width: 100%;
+      max-height: 75vh;
+      overflow-y: auto; /* 若螢幕過小可獨立捲動內部文字，絕不超出畫面 */
     }
 
     .result-text p {
       font-size: var(--fz-result-text) !important;
-      line-height: 1.6;
+      line-height: 1.45;
       color: #2d3748;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.25rem;
     }
 
     .result-title {
       font-size: var(--fz-result-title) !important;
       font-weight: bold;
       color: #0284c7;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.4rem;
     }
 
     /* Start Now 按鈕放大優化 */
@@ -306,7 +314,7 @@
       z-index: 10;
       font-size: var(--fz-btn) !important;
       font-weight: bold;
-      padding: 14px 40px !important;
+      padding: 12px 36px !important;
       border-radius: 35px;
       background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
       border: none;
@@ -377,7 +385,7 @@
 </head>
 <body>
 
-  <!-- 字體大小切換按鈕 (固定於左上角) -->
+  <!-- 字體大小切換按鈕 (固定於左上角，僅在首頁顯示) -->
   <button id="font-size-switcher" class="font-switcher" type="button">字體：標準</button>
 
   <!-- 背景氛圍特效容器 -->
@@ -408,7 +416,7 @@
   <section class="quiz-page features028" id="features028-27">
     <div class="container px-2">
       <div class="row justify-content-center align-items-center">
-        <div class="col-12 text-center mb-2">
+        <div class="col-12 text-center mb-1">
           <img class="quiz-img" src="Gemini_Generated_Image_m50fo3m50fo3m50f.jpg" alt="題目 1">
         </div>
         <div class="col-12">
@@ -436,7 +444,7 @@
   <section class="quiz-page features028" id="features028-28">
     <div class="container px-2">
       <div class="row justify-content-center align-items-center">
-        <div class="col-12 text-center mb-2">
+        <div class="col-12 text-center mb-1">
           <img class="quiz-img" src="Gemini_Generated_Image_cn23a2cn23a2cn23.jpg" alt="題目 2">
         </div>
         <div class="col-12">
@@ -468,7 +476,7 @@
   <section class="quiz-page features028" id="features028-29">
     <div class="container px-2">
       <div class="row justify-content-center align-items-center">
-        <div class="col-12 text-center mb-2">
+        <div class="col-12 text-center mb-1">
           <img class="quiz-img" src="Gemini_Generated_Image_ffh21affh21affh2.jpg" alt="題目 3">
         </div>
         <div class="col-12">
@@ -499,7 +507,7 @@
   <section class="quiz-page features028" id="features028-2a">
     <div class="container px-2">
       <div class="row justify-content-center align-items-center">
-        <div class="col-12 text-center mb-2">
+        <div class="col-12 text-center mb-1">
           <img class="quiz-img" src="Gemini_Generated_Image_hj5hrwhj5hrwhj5h.jpg" alt="題目 4">
         </div>
         <div class="col-12">
@@ -530,7 +538,7 @@
   <section class="quiz-page features028" id="features028-2b">
     <div class="container px-2">
       <div class="row justify-content-center align-items-center">
-        <div class="col-12 text-center mb-2">
+        <div class="col-12 text-center mb-1">
           <img class="quiz-img" src="Gemini_Generated_Image_qw2v4kqw2v4kqw2v.jpg" alt="題目 5">
         </div>
         <div class="col-12">
@@ -561,7 +569,7 @@
   <section class="quiz-page features031" id="result-A">
     <div class="container px-2">
       <div class="row justify-content-center align-items-center">
-        <div class="col-12 mb-2">
+        <div class="col-12 mb-1 text-center">
           <img class="result-img" src="Gemini_Generated_Image_x70fvex70fvex70f.jpg" alt="紅鼓魚">
         </div>
         <div class="col-12 result-text">
@@ -570,8 +578,8 @@
           <p>在魚塭或海水養殖池裡容易成為裡面最吸睛的魚。</p>
           <p>雖然外表亮眼，但其實對環境變化很敏感，需要穩定水質與細膩的照顧。</p>
           <p>群體生活容易活在自己的世界，自顧自偏離其他魚群，下一秒再閃現到眼前，是最閃亮的顯眼包。</p>
-          <p class="mt-2 text-primary"><strong>#自信張揚 #熱情迷人 #卻又心思細膩的樂天派</strong></p>
-          <div class="mt-3 text-center">
+          <p class="mt-1 text-primary"><strong>#自信張揚 #熱情迷人 #卻又心思細膩的樂天派</strong></p>
+          <div class="mt-2 text-center">
             <button class="btn btn-restart-quiz" type="button">🔄 重新測驗</button>
           </div>
         </div>
@@ -583,7 +591,7 @@
   <section class="quiz-page features031" id="result-B">
     <div class="container px-2">
       <div class="row justify-content-center align-items-center">
-        <div class="col-12 mb-2">
+        <div class="col-12 mb-1 text-center">
           <img class="result-img" src="Gemini_Generated_Image_97knn297knn297kn.jpg" alt="魟魚">
         </div>
         <div class="col-12 result-text">
@@ -591,8 +599,8 @@
           <p>佛系交友、隨和的人設，但不是誰都可以，尾巴的刺就是最好的象徵。</p>
           <p>魟魚接受群體生活，但如果長時間下來佔用了牠太多應有的個人空間，則會默默游出此地。</p>
           <p>交流感與舒服的互動節奏，正是牠的專利，只要拿捏好分寸，也能獲得牠的青睞。</p>
-          <p class="mt-2 text-primary"><strong>#隨和有界限 #重視雙向交流 #也很需要自己的空間</strong></p>
-          <div class="mt-3 text-center">
+          <p class="mt-1 text-primary"><strong>#隨和有界限 #重視雙向交流 #也很需要自己的空間</strong></p>
+          <div class="mt-2 text-center">
             <button class="btn btn-restart-quiz" type="button">🔄 重新測驗</button>
           </div>
         </div>
@@ -604,7 +612,7 @@
   <section class="quiz-page features031" id="result-C">
     <div class="container px-2">
       <div class="row justify-content-center align-items-center">
-        <div class="col-12 mb-2">
+        <div class="col-12 mb-1 text-center">
           <img class="result-img" src="Gemini_Generated_Image_ksuzzcksuzzcksuz.jpg" alt="魔鬼刀">
         </div>
         <div class="col-12 result-text">
@@ -613,8 +621,8 @@
           <p>外表黑色佔大多面積，少量的白色成為點綴牠的特點。這樣的外貌形似包公。</p>
           <p>黑色的臉，白色的月亮，象徵冷靜且敏銳，擁有清楚的判斷及洞察能力。</p>
           <p>聰明、不輕易上鉤、警戒心高是牠的標籤。</p>
-          <p class="mt-2 text-primary"><strong>#嘴毒直率 #明辨是非 #卻又有禮貌的反差系</strong></p>
-          <div class="mt-3 text-center">
+          <p class="mt-1 text-primary"><strong>#嘴毒直率 #明辨是非 #卻又有禮貌的反差系</strong></p>
+          <div class="mt-2 text-center">
             <button class="btn btn-restart-quiz" type="button">🔄 重新測驗</button>
           </div>
         </div>
@@ -626,7 +634,7 @@
   <section class="quiz-page features031" id="result-D">
     <div class="container px-2">
       <div class="row justify-content-center align-items-center">
-        <div class="col-12 mb-2">
+        <div class="col-12 mb-1 text-center">
           <img class="result-img" src="Gemini_Generated_Image_flcztzflcztzflcz.jpg" alt="河豚">
         </div>
         <div class="col-12 result-text">
@@ -634,8 +642,8 @@
           <p>天生自帶一種：「高敏感、高防備、高自我保護」的型態出現於眾人眼前。</p>
           <p>平時不會主動找人搭話聊天。甚至大部分時間喜歡安安靜靜地待著，看起來無害、低調。</p>
           <p>但只要外界的資訊靠近牠，會膨脹自身，產生自我保護的機制。</p>
-          <p class="mt-2 text-primary"><strong>#高標準 #心思細膩又敏感 #外冷內熱的完美主義I人</strong></p>
-          <div class="mt-3 text-center">
+          <p class="mt-1 text-primary"><strong>#高標準 #心思細膩又敏感 #外冷內熱的完美主義I人</strong></p>
+          <div class="mt-2 text-center">
             <button class="btn btn-restart-quiz" type="button">🔄 重新測驗</button>
           </div>
         </div>
@@ -709,6 +717,9 @@
         e.preventDefault();
         const rect = startBtn.getBoundingClientRect();
         triggerBubbleBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 15);
+
+        // 隱藏左上角字體切換按鈕
+        document.body.classList.add('hide-switcher');
 
         setTimeout(() => {
           heroSection.classList.remove('active-quiz');
@@ -788,6 +799,10 @@
         document.querySelectorAll('.quiz-page').forEach(page => {
           page.classList.remove('active-quiz');
         });
+        
+        // 重新顯示首頁的字體切換按鈕
+        document.body.classList.remove('hide-switcher');
+
         heroSection.classList.add('active-quiz');
         window.scrollTo({ top: 0, behavior: 'instant' });
       });
