@@ -62,7 +62,7 @@
       position: fixed;
       top: 15px;
       left: 15px;
-      z-index: 999;
+      z-index: 9999;
       background: rgba(255, 255, 255, 0.95);
       border: 2px solid #38bdf8;
       color: #0284c7;
@@ -89,7 +89,7 @@
       display: none;
       width: 100%;
       min-height: 100vh;
-      padding: 1.25rem 1rem; /* 增加邊界防止貼邊 */
+      padding: 1.25rem 1rem;
       box-sizing: border-box;
       position: relative;
       z-index: 2;
@@ -283,19 +283,19 @@
       box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
     }
 
-    /* 結果頁專用外層容器：增加兩側 margin 離螢幕邊框遠一些 */
+    /* 結果頁專用外層容器 */
     .result-page-container {
       width: calc(100% - 16px);
       max-width: 500px;
       margin: 0 auto;
-      padding: 0 8px; /* 增加兩側緩衝 */
+      padding: 0 8px;
       box-sizing: border-box;
     }
 
-    /* 結果頁文字卡片：增加內距（padding）確保文字不會貼近卡片或手機邊緣 */
+    /* 結果頁文字卡片 */
     .result-text {
       background: rgba(255, 255, 255, 0.96);
-      padding: 20px 22px; /* 充足的左右與上下內距 */
+      padding: 20px 22px;
       border-radius: 16px;
       box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
       border: 1px solid #e2e8f0;
@@ -310,7 +310,7 @@
       line-height: 1.65;
       color: #2d3748;
       margin-bottom: 0.6rem;
-      padding: 0 4px; /* 內文兩側微調增加空氣感 */
+      padding: 0 4px;
     }
 
     .result-title {
@@ -321,7 +321,7 @@
       text-align: center;
     }
 
-    /* Start Now 按鈕放大優化 */
+    /* Start Now 按鈕 */
     #start-quiz-btn {
       position: relative;
       z-index: 10;
@@ -591,7 +591,7 @@
             <p>存在感很強，活動力高，游動姿態漂亮的魚種。</p>
             <p>在魚塭或海水養殖池裡容易成為裡面最吸睛的魚。</p>
             <p>雖然外表亮眼，但其實對環境變化很敏感，需要穩定水質與細膩的照顧。</p>
-            <p>群體生活容易活在自己的世界，自顧自偏離其他魚群，下一秒再閃現到眼前，是最閃亮亮鮮明的顯眼包。</p>
+            <p>群體生活容易活在自己的世界，自顧自偏離其他魚群，下一秒再閃現到眼前，是最閃亮的顯眼包。</p>
             <p class="mt-2 text-center text-primary"><strong>#自信張揚 #熱情迷人 #卻又心思細膩的樂天派</strong></p>
             <div class="mt-3 text-center">
               <button class="btn btn-restart-quiz" type="button">🔄 重新測驗</button>
@@ -755,7 +755,6 @@
 
       options.forEach(option => {
         option.addEventListener('click', function (e) {
-          const rect = this.getBoundingClientRect();
           const chosen = this.getAttribute('data-option');
           
           if (chosen && scores.hasOwnProperty(chosen)) {
